@@ -32,7 +32,7 @@ The recommended resolution is 1 mm isotropic. Images with a different resolution
 
 ### Hardware requirements
 
-While the inference can be run on CPU (>8 cores recommended), an NVIDIA GPU will greatly accelerate the calculation. The pre-built image supports a wide range of NVIDIA GPUs from compute capability 7.5 (Maxwell, 2014) to 12.0 (Blackwell, 2024).
+While the inference can be run on CPU (>8 cores recommended), an NVIDIA GPU will greatly accelerate the calculation. The pre-built image supports a wide range of NVIDIA GPUs from compute capability 7.0 (Volta, 2017) to the most recent 12.0 (Blackwell, 2024).
 
 ### Using Apptainer
 
