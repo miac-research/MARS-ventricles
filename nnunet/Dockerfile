@@ -41,9 +41,9 @@ LABEL org.opencontainers.image.description="Ready-to-use container image for MAR
 LABEL org.opencontainers.image.version="1.0.0"
 LABEL version="1.0.0"
 
-ENV nnUNet_raw_data_base=/nnunet/raw \
+ENV nnUNet_raw=/nnunet/raw \
     nnUNet_preprocessed=/nnunet/preprocessed \
-    RESULTS_FOLDER=/nnunet/results \
+    nnUNet_results=/nnunet/results \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     DEBIAN_FRONTEND=noninteractive \
     LANG="en_US.UTF-8" \
@@ -71,8 +71,7 @@ RUN apt-get update -qq && apt-get install -y -q --no-install-recommends \
  && rm -rf /var/lib/apt/lists/*
 
 # Create folder structure required by nnU-Net
-RUN mkdir -p /nnunet/raw/nnUNet_cropped_data \
-        /nnunet/raw/nnUNet_raw_data \
+RUN mkdir -p /nnunet/raw \
         /nnunet/preprocessed \
         /nnunet/results
 
