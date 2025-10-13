@@ -10,8 +10,8 @@ RUN apt-get update -qq && apt-get install -y -q --no-install-recommends \
     python3=3.12.3* \
     python3.12-venv=3.12.3* \
     python3-pip=24.0* \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 RUN python -m venv /venv \
  && /venv/bin/pip install --upgrade pip \
@@ -20,10 +20,7 @@ RUN python -m venv /venv \
  && /venv/bin/pip install --no-cache-dir --prefer-binary \
         setuptools==69.0.3 \
         wheel==0.42.0 \
-        nnunet==2.6.2
-
-# Modify nnunet model_restore.py to revert new default setting in torch==2.6 and newer
-RUN sed -i 's/map_location=torch.device('\''cpu'\'')/map_location=torch.device('\''cpu'\''), weights_only=False/g' /venv/lib/python3.12/site-packages/nnunet/training/model_restore.py
+        nnunetv2==2.6.2
 
 # venv finalization and clean-up
 RUN /venv/bin/pip install --no-cache-dir --prefer-binary --force-reinstall \
@@ -75,8 +72,8 @@ RUN mkdir -p /nnunet/raw \
         /nnunet/preprocessed \
         /nnunet/results
 
-#  nnU-Net model
-WORKDIR /nnunet/results/Dataset100_Ventricles
+# nnU-Net model
+WORKDIR /nnunet/results/Dataset100_Ventricles/nnUNetTrainer__plans_24GB_1mm__3d_fullres
 COPY nnUNetTrainer__plans_24GB_1mm__3d_fullres .
 
 # Copy venv from builder stage
