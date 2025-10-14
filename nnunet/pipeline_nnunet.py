@@ -17,6 +17,7 @@ from pathlib import Path
 import string
 import random
 import torch
+import warnings
 
 def qfrom_2_sform(fname_image):
 
@@ -57,17 +58,18 @@ def nnunet_prediction(t1, verbose=True):
     dir_input = dirname(t1)
 
     if torch.cuda.is_available():
-        major, minor = torch.cuda.get_device_capability(torch.cuda.current_device())
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            major, minor = torch.cuda.get_device_capability(torch.cuda.current_device())
         arch_str = f"sm_{major}"
         if any(string.startswith(arch_str) for string in torch.cuda.get_arch_list()):
-            gpu_available = True
-            print('Using GPU for prediction.')
+            print('\nUsing GPU for prediction.')
             useCPU = ''
         else:
-            print(f'WARNING: CUDA capability sm_{major}{minor} is not compatible with the current PyTorch installation.\nUsing CPU instead of GPU for prediction.')
+            print(f'\nWARNING: CUDA capability sm_{major}{minor} is not compatible with the current PyTorch installation.\nUsing CPU instead of GPU for prediction.')
             useCPU='-device cpu --disable_tta'
     else:
-        print('WARNING: CUDA not available. Using CPU instead of GPU for prediction.')
+        print('\nWARNING: CUDA not available. Using CPU instead of GPU for prediction.')
         useCPU='-device cpu --disable_tta'
 
     cmd = (
