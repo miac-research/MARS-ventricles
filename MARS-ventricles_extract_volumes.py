@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Extract voxel count, volume and cluster count for segmented lateral ventricles from (multiple) NIfTI files, corresponding to
-differnt patients, and containing MARS segmentation label-maps and aggregate these statistics across files into a single table.
+differnt patients and containing MARS segmentation label-maps, and aggregate these statistics across files into a single table.
 """
 
 import sys, os, glob, argparse, re, time
