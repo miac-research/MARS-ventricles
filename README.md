@@ -61,6 +61,14 @@ docker run --rm --gpus all -v $(pwd):/data mars-ventricles:latest /data/T1.nii.g
 docker run --rm mars-ventricles:latest -h
 ```
 
+## Extracting lateral ventricle volumes from segmented images
+
+The script `MARS-ventricles_extract_volumes.py` allows you to extract and aggregate the voxel count, volume and cluster count of the segmented lateral ventricles from one or more NIfTI files corresponding to MARS segmentation label-maps.  
+The minimum input required is the directory in which the data for one or more patients has been segmented. For complete usage information, call the script without any arguments.  
+Run the script in your local Python environment or use Apptainer and run the script within the MARS-ventricles container with its Python installation, e.g.:  
+`apptainer exec -B /path/to/segmented/data mars-ventricles.sif python MARS-ventricles_extract_volumes.py /path/to/segmented/data`
+
+
 ## Licenses of redistributed software
 
 Please note the license terms of software components that we redistribute within our container images:
